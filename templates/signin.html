@@ -3,15 +3,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In | ProfessorSTEM</title>
-  <link rel="icon" href="/assets/favicon.ico"><link href="/assets/css/style.css" rel="stylesheet"></head>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}"><link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"></head>
   <body class="zj">
     <!-- ===== Header Start ===== -->
     <header class="header d x q hc">
       <div class="hb hc md sf xn yn mo xp 2xl:ud-px-20">
         <div class="e ga kc un wp">
           <a href="index.html" class="gb">
-            <img src="/assets/images/logo-dark.svg" alt="logo" class="jb tb kj">
-            <img src="/assets/images/logo-light.svg" alt="logo" class="tb lj">
+            <img src="{{ url_for('static', filename='images/logo-dark.svg') }}" alt="logo" class="jb tb kj">
+            <img src="{{ url_for('static', filename='images/logo-light.svg') }}" alt="logo" class="tb lj">
           </a>
         </div>
         <div class="menu-wrapper c x q ea xb hc pd af lf zj zm an kn mn zn ho jo mp sp">
@@ -75,7 +75,7 @@
             </nav>
           </div>
           <div class="d m q hb hc od qd ud yd lf an tn co jo">
-            <a href="signup.html" class="hc ce de ye zf tf lh mh ii bj tn">
+            <a href="/signin" class="hc ce de ye zf tf lh mh ii bj tn">
               Sign In
             </a>
             <a href="signup.html" class="hc ce de se zf tf lh mh ii bj tn">
@@ -237,8 +237,8 @@
           <div class="hc rf sk/2 am/12 qn/12 vp/12">
             <div class="ta mc">
               <a href="index.html" class="xa gb">
-                <img src="/assets/images/logo-dark.svg" alt="logo" class="jb tb kj">
-                <img src="/assets/images/logo-light.svg" alt="logo" class="tb lj">
+                <img src="{{ url_for('static', filename='images/logo-dark.svg') }}" alt="logo" class="jb tb kj">
+                <img src="{{ url_for('static', filename='images/logo-light.svg') }}" alt="logo" class="tb lj">
               </a>
 
               <p class="oa sh gi">
@@ -414,7 +414,7 @@
       <span class="eb nb bc hd le je oe"></span>
     </a>
     <!-- ====== Back To Top End ===== -->
-  <script data-cfasync="false" src="/assets/js/email-decode.min.js"></script><script defer="" src="/assets/js/bundle.js"></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'902f265c9c0466db',t:'MTczNzA0MTQ1OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" data-cf-beacon="{" rayid":"902f265c9c0466db","version":"2025.1.0","r":1,"token":"9a6015d415bb4773a0bff22543062d3b","servertiming":{"name":{"cfextpri":true,"cfl4":true,"cfspeedbrain":true,"cfcachestatus":true}}}"="" crossorigin="anonymous"></script>
+  <script data-cfasync="false" src="{{ url_for('static', filename='js/email-decode.min.js') }}"></script><script defer="" src="{{ url_for('static', filename='js/bundle.js') }}"></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'902f265c9c0466db',t:'MTczNzA0MTQ1OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" data-cf-beacon="{" rayid":"902f265c9c0466db","version":"2025.1.0","r":1,"token":"9a6015d415bb4773a0bff22543062d3b","servertiming":{"name":{"cfextpri":true,"cfl4":true,"cfspeedbrain":true,"cfcachestatus":true}}}"="" crossorigin="anonymous"></script>
 
 
 </body></html>
