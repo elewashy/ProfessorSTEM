@@ -21,23 +21,31 @@ def home():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    username = request.form['username']
-    email = request.form['email']
-    password = request.form['password']
-    
-    # التحقق إذا كان البريد الإلكتروني موجودًا بالفعل
-    conn = sqlite3.connect('users.db')
-    c = conn.cursor()
-    c.execute("SELECT * FROM users WHERE email = ?", (email,))
-    user = c.fetchone()
-    if user:
-        return "Email already registered, please log in."
-    
-    # إضافة المستخدم الجديد إلى قاعدة البيانات
-    c.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", (username, email, password))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('home'))
+    try:
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        print(f"Received data: username={username}, email={email}, password={password}")
+
+        # التحقق إذا كان البريد الإلكتروني موجودًا بالفعل
+        conn = sqlite3.connect('users.db')
+        c = conn.cursor()
+        c.execute("SELECT * FROM users WHERE email = ?", (email,))
+        user = c.fetchone()
+        print(f"User lookup result: {user}")
+
+        if user:
+            return "Email already registered, please log in."
+
+        # إضافة المستخدم الجديد إلى قاعدة البيانات
+        c.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", (username, email, password))
+        conn.commit()
+        conn.close()
+        print("User added successfully.")
+        return redirect(url_for('home'))
+    except Exception as e:
+        print(f"Error during signup: {e}")
+        return "An error occurred during signup."
 
 @app.route('/login', methods=['POST'])
 def login():
