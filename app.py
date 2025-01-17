@@ -38,18 +38,26 @@ def signup():
 
 @app.route('/login', methods=['POST'])
 def login():
-    email = request.form['logemail']
-    password = request.form['logpass']
+    try:
+        email = request.form['logemail']
+        password = request.form['logpass']
+        
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # التحقق من بيانات المستخدم
+        cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
+        user = cur.fetchone()
+        conn.close()
 
-    conn = get_db_connection()
-    cur = conn.cursor()
-    
-    # التحقق من بيانات المستخدم
-    cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
-    user = cur.fetchone()
-    conn.close()
-
-    if user:
+        if user:
+            session['user'] = email
+            return redirect(url_for('dashboard'))
+        else:
+            return "Invalid email or password"
+    except Exception as e:
+        print(f"Error: {e}")
+        return "Internal server error", 500
         session['user'] = email
         return redirect(url_for('dashboard'))
     return "Invalid email or password"
