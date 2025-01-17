@@ -1,19 +1,14 @@
-import sqlite3
+import os
+import psycopg2
 from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# الاتصال بقاعدة البيانات (أو إنشاءها إذا لم تكن موجودة)
-def init_db():
-    conn = sqlite3.connect('users.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, email TEXT, password TEXT)''')
-    conn.commit()
-    conn.close()
-
-# استدعاء دالة إنشاء قاعدة البيانات عند تشغيل التطبيق لأول مرة
-init_db()
+# اتصال بقاعدة البيانات
+def get_db_connection():
+    conn = psycopg2.connect(os.getenv("DATABASE_URL"))  # رابط الاتصال موجود كمتغير بيئي
+    return conn
 
 @app.route('/')
 def home():
@@ -21,42 +16,37 @@ def home():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    try:
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        print(f"Received data: username={username}, email={email}, password={password}")
-
-        # التحقق إذا كان البريد الإلكتروني موجودًا بالفعل
-        conn = sqlite3.connect('users.db')
-        c = conn.cursor()
-        c.execute("SELECT * FROM users WHERE email = ?", (email,))
-        user = c.fetchone()
-        print(f"User lookup result: {user}")
-
-        if user:
-            return "Email already registered, please log in."
-
-        # إضافة المستخدم الجديد إلى قاعدة البيانات
-        c.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", (username, email, password))
-        conn.commit()
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    # التحقق إذا كان البريد الإلكتروني موجودًا بالفعل
+    cur.execute("SELECT * FROM users WHERE email = %s", (email,))
+    user = cur.fetchone()
+    if user:
         conn.close()
-        print("User added successfully.")
-        return redirect(url_for('home'))
-    except Exception as e:
-        print(f"Error during signup: {e}")
-        return "An error occurred during signup."
+        return "Email already registered, please log in."
+
+    # إضافة المستخدم الجديد إلى قاعدة البيانات
+    cur.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", (username, email, password))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('home'))
 
 @app.route('/login', methods=['POST'])
 def login():
     email = request.form['logemail']
     password = request.form['logpass']
+
+    conn = get_db_connection()
+    cur = conn.cursor()
     
-    # التحقق من بيانات المستخدم في قاعدة البيانات
-    conn = sqlite3.connect('users.db')
-    c = conn.cursor()
-    c.execute("SELECT * FROM users WHERE email = ? AND password = ?", (email, password))
-    user = c.fetchone()
+    # التحقق من بيانات المستخدم
+    cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
+    user = cur.fetchone()
     conn.close()
 
     if user:
