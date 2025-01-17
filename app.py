@@ -58,9 +58,6 @@ def login():
     except Exception as e:
         print(f"Error: {e}")
         return "Internal server error", 500
-        session['user'] = email
-        return redirect(url_for('dashboard'))
-    return "Invalid email or password"
 
 @app.route('/dashboard')
 def dashboard():
