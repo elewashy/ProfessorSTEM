@@ -14,24 +14,19 @@ def get_db_connection():
     conn = psycopg2.connect(os.getenv("DATABASE_URL"))
     return conn
 
-
 def create_users_table():
     supabase = get_supabase_client()
 
-    # إنشاء الجدول إذا لم يكن موجودًا
     try:
-        supabase.postgrest.rpc(
-            "create_table",
-            {
-                "table_name": "users",
-                "columns": [
-                    {"name": "id", "type": "serial", "constraints": "PRIMARY KEY"},
-                    {"name": "username", "type": "varchar(100)", "constraints": "NOT NULL"},
-                    {"name": "email", "type": "varchar(100)", "constraints": "UNIQUE NOT NULL"},
-                    {"name": "password", "type": "varchar(255)", "constraints": "NOT NULL"},
-                ]
-            }
-        )
+        query = """
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY,
+            username VARCHAR(100) NOT NULL,
+            email VARCHAR(100) UNIQUE NOT NULL,
+            password VARCHAR(255) NOT NULL
+        );
+        """
+        supabase.postgrest.execute_sql(query)
         print("Table 'users' created successfully!")
     except Exception as e:
         print(f"Error creating table: {e}")
@@ -51,12 +46,10 @@ def signup():
     try:
         with get_db_connection() as conn:
             with conn.cursor() as cur:
-                # التحقق من البريد الإلكتروني
                 cur.execute("SELECT * FROM users WHERE email = %s", (email,))
                 if cur.fetchone():
                     return "Email already registered, please log in."
 
-                # إدخال المستخدم
                 cur.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", 
                             (username, email, hashed_password.decode('utf-8')))
                 conn.commit()
@@ -97,5 +90,5 @@ def logout():
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
-    create_users_table()  # إنشاء الجدول تلقائيًا
+    create_users_table()
     app.run(debug=True)
