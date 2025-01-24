@@ -2,7 +2,6 @@ import os
 import psycopg2
 from flask import Flask, render_template, request, redirect, url_for, session
 import bcrypt
-from supabase_config import get_supabase_client
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,23 +12,6 @@ app.secret_key = os.getenv("SECRET_KEY")
 def get_db_connection():
     conn = psycopg2.connect(os.getenv("DATABASE_URL"))
     return conn
-
-def create_users_table():
-    supabase = get_supabase_client()
-
-    try:
-        query = """
-        CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            username VARCHAR(100) NOT NULL,
-            email VARCHAR(100) UNIQUE NOT NULL,
-            password VARCHAR(255) NOT NULL
-        );
-        """
-        supabase.postgrest.execute_sql(query)
-        print("Table 'users' created successfully!")
-    except Exception as e:
-        print(f"Error creating table: {e}")
 
 @app.route('/')
 def home():
@@ -90,5 +72,4 @@ def logout():
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
-    create_users_table()
     app.run(debug=True)
