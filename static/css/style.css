@@ -2739,3 +2739,72 @@ body{
   }
 }
 
+/* التنسيق العام للرسالة */
+.alert-container {
+  position: fixed;
+  top: 80px; /* نزلنا الرسالة تحت شويه */
+  right: 20px;
+  z-index: 9999;
+  max-width: 350px; /* تحديد عرض الرسالة */
+}
+
+/* التنسيق الأساسي للرسالة */
+.alert {
+  background: linear-gradient(135deg, #66bb6a, #4caf50); /* تدرج لوني أخضر لطيف */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px; /* حواف دائرية أكثر نعومة */
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* إضافة ظل أكثر وضوحًا */
+  animation: slideIn 0.8s ease-out, fadeOut 1.5s 4s forwards; /* تغيير سرعة التأثير */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* تعديل المحاذاة */
+  margin-bottom: 10px; /* المسافة بين الرسائل */
+}
+
+/* تخصيص الأيقونة */
+.alert .alert-icon {
+  margin-right: 12px; /* مسافة بين الأيقونة والنص */
+  font-size: 20px; /* حجم الأيقونة */
+}
+
+/* تأثير الدخول من الجنب */
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* تأثير الاختفاء التدريجي */
+@keyframes fadeOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* تخصيص الرسائل باللون الوردي للأخطاء */
+.alert.error {
+  background: linear-gradient(135deg, #f8bbd0, #f44336); /* تدرج لوني وردي إلى أحمر هادئ */
+}
+
+/* تخصيص الرسائل باللون الأزرق للمعلومات */
+.alert.info {
+  background: linear-gradient(135deg, #bbdefb, #2196f3); /* تدرج لوني أزرق */
+}
+
+/* تخصيص الرسائل باللون البرتقالي للتحذير */
+.alert.warning {
+  background: linear-gradient(135deg, #ffb74d, #ff9800); /* تدرج لوني برتقالي */
+}

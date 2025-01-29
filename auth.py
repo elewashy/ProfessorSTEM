@@ -1,6 +1,6 @@
 import re
 import bcrypt
-from flask import redirect, url_for, render_template, request, session
+from flask import redirect, url_for, render_template, request, session, flash
 from db import get_db_connection
 
 def signup(request):
@@ -15,18 +15,21 @@ def signup(request):
         try:
             with get_db_connection() as conn:
                 with conn.cursor(buffered=True) as cur:
-         
                     cur.execute("SELECT * FROM users WHERE email = %s", (email,))
                     if cur.fetchone():
-                        return "Email already registered, please log in."
+                        flash("Email already registered, please log in.", "error")
+                        return redirect(url_for('signup_page'))
 
                     cur.execute("INSERT INTO users (username, full_name, email, password) VALUES (%s, %s, %s, %s)", 
                                 (username, full_name, email, hashed_password.decode('utf-8')))
                     conn.commit()
 
+                    flash("You have successfully registered!", "success")
+                    
         except Exception as e:
             print(f"Error: {e}")
-            return "Internal server error", 500
+            flash("Internal server error", "error")
+            return redirect(url_for('signup_page'))
 
         return redirect(url_for('signin_page'))
 
