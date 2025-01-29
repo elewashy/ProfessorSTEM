@@ -4,12 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Professor Stem Title</title>
   <link rel="icon" href="/static/images/favicon.ico"><link href="/static/css/style.css" rel="stylesheet"></head>
-<body x-data="{ page: 'signin', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }" 
-      x-init="
-         darkMode = JSON.parse(localStorage.getItem('darkMode')) !== null ? JSON.parse(localStorage.getItem('darkMode')) : true;
-         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" 
-      :class="{'a tf': darkMode === true}">
-    <!-- ===== Preloader Start ===== -->
+  <body x-data="{ page: 'home', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }" 
+  x-init="
+     darkMode = JSON.parse(localStorage.getItem('darkMode')) !== null ? JSON.parse(localStorage.getItem('darkMode')) : true;
+     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" 
+  :class="{'a tf': darkMode === true}">
+<!-- ===== Preloader Start ===== -->
     <div x-show="loaded" x-init="window.addEventListener('DOMContentLoaded', () => {setTimeout(() => loaded = false, 500)})" class="f l i z mc qb ee ge id uf">
   <div class="sc xb xe xd if mf qf sf"></div>
 </div>
