@@ -48,18 +48,16 @@
               </ul>
             </li> -->
             <li><a href="/#support" class="bl">Support</a></li>
-            <li><a href="/todolist" class="bl">Todolist</a></li>
+            <li><a href="/todolist" class="bl">TodoList</a></li>
           </ul>
         </nav>
   
         <div class="qb ee se ka bo">
-          <div class="mb g vn top-1 t" :class="navigationOpen ? 'd' : 'd'">
             <label class="ob m-0 h">
               <input type="checkbox" :value="darkMode" @change="darkMode = !darkMode" class="yd rc hc lj g i x aa">
               <img class="nl" src="/static/images/icon-sun.svg" alt="Sun">
               <img class="ub ml" src="/static/images/icon-moon.svg" alt="Moon">
             </label>
-          </div>
   
           <a href="/signin" class="gj wi bj bl":class="{ 'hj': page === 'signin' }">Sign In</a>
           <a href="/signup" class="gj wi bj bl":class="{ 'hj': page === 'signup' }">Sign up</a>
