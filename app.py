@@ -37,5 +37,9 @@ def logout():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@app.route('/todolist')
+def todolist():
+    return render_template('todolist.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
