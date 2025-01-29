@@ -290,24 +290,30 @@ h6 span{
 	display: block;
 }
 @media screen and (max-width: 767px) {
+  /* تقليل حجم الخطوط لجعل المحتوى يتناسب مع الشاشة */
   body {
-    font-size: 14px; /* تصغير الخط */
+    font-size: 14px; 
+    line-height: 1.6;
   }
 
   .card-3d-wrap {
-    width: 100%;
+    width: 90%;  /* جعل العرض 90% من عرض الشاشة */
     height: auto;
     margin-top: 30px;
+    padding: 10px;  /* إضافة حواف لاحتواء العناصر */
   }
 
-  .form-group input {
-    font-size: 13px; /* تصغير الخط داخل الحقول */
+  .form-style {
+    padding: 12px 18px;
+    font-size: 12px; /* تقليل حجم الخط داخل الحقول */
+    height: 45px;
   }
 
   .btn {
-    padding: 0 20px;
-    font-size: 12px;
-    height: 40px;
+    width: 100%;  /* جعل الأزرار تأخذ عرض كامل الشاشة */
+    padding: 12px;
+    font-size: 14px;
+    height: 48px;
   }
 
   .checkbox:checked + label:before,
@@ -318,31 +324,36 @@ h6 span{
   }
 
   .logo {
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
   }
 
   .center-wrap {
-    padding: 0 15px; /* تقليص الحواف */
+    padding: 0 15px;
   }
 }
 
 @media screen and (max-width: 480px) {
   body {
-    font-size: 13px; /* أصغر الخطوط للهواتف الصغيرة جداً */
+    font-size: 12px; 
   }
 
   .card-3d-wrap {
-    height: 350px; /* تقليص الحجم في الشاشات الصغيرة جداً */
+    width: 100%;  /* عرض كامل الشاشة */
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .form-style {
+    padding: 10px 15px;
+    font-size: 12px;
+    height: 40px;
   }
 
   .btn {
-    font-size: 11px; /* تصغير الخط */
-    height: 36px;
-  }
-
-  .form-group input {
-    font-size: 12px; /* تصغير الخط داخل الحقول */
+    font-size: 13px; 
+    height: 45px;
+    padding: 10px;
   }
 
   .checkbox:checked + label:before,
@@ -350,5 +361,10 @@ h6 span{
     width: 28px;
     height: 28px;
     font-size: 18px;
+  }
+
+  .logo {
+    top: 5px;
+    right: 5px;
   }
 }
