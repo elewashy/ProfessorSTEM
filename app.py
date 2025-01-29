@@ -3,7 +3,6 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from auth import signin, signup
 from db import get_db_connection
 
-# تحميل الإعدادات من ملف البيئة
 from dotenv import load_dotenv
 load_dotenv()
 
