@@ -1,5 +1,5 @@
 import os
-import psycopg2
+import mysql.connector
 from flask import Flask, render_template, request, redirect, url_for, session
 import bcrypt
 from dotenv import load_dotenv
@@ -9,8 +9,15 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 
+# إنشاء اتصال بقاعدة البيانات
 def get_db_connection():
-    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+    conn = mysql.connector.connect(
+        host=os.getenv('DB_HOST'),
+        database=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        port=os.getenv('DB_PORT')
+    )
     return conn
 
 @app.route('/')
@@ -27,7 +34,7 @@ def signup():
 
     try:
         with get_db_connection() as conn:
-            with conn.cursor() as cur:
+            with conn.cursor(buffered=True) as cur:
                 cur.execute("SELECT * FROM users WHERE email = %s", (email,))
                 if cur.fetchone():
                     return "Email already registered, please log in."
@@ -48,7 +55,7 @@ def login():
 
     try:
         with get_db_connection() as conn:
-            with conn.cursor() as cur:
+            with conn.cursor(buffered=True) as cur:
                 cur.execute("SELECT password FROM users WHERE email = %s", (email,))
                 user = cur.fetchone()
                 if user and bcrypt.checkpw(password.encode('utf-8'), user[0].encode('utf-8')):
