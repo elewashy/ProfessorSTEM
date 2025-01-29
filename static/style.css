@@ -289,3 +289,66 @@ h6 span{
 	width: auto;
 	display: block;
 }
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 14px; /* تصغير الخط */
+  }
+
+  .card-3d-wrap {
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+  }
+
+  .form-group input {
+    font-size: 13px; /* تصغير الخط داخل الحقول */
+  }
+
+  .btn {
+    padding: 0 20px;
+    font-size: 12px;
+    height: 40px;
+  }
+
+  .checkbox:checked + label:before,
+  .checkbox:not(:checked) + label:before {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+  }
+
+  .logo {
+    top: 15px;
+    right: 15px;
+  }
+
+  .center-wrap {
+    padding: 0 15px; /* تقليص الحواف */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 13px; /* أصغر الخطوط للهواتف الصغيرة جداً */
+  }
+
+  .card-3d-wrap {
+    height: 350px; /* تقليص الحجم في الشاشات الصغيرة جداً */
+  }
+
+  .btn {
+    font-size: 11px; /* تصغير الخط */
+    height: 36px;
+  }
+
+  .form-group input {
+    font-size: 12px; /* تصغير الخط داخل الحقول */
+  }
+
+  .checkbox:checked + label:before,
+  .checkbox:not(:checked) + label:before {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+}
