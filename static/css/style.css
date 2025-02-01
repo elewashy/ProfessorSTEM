@@ -2743,9 +2743,10 @@ body{
 .alert-container {
   position: fixed;
   top: 80px; /* نزلنا الرسالة تحت شويه */
-  right: 20px;
+  right: 5%; /* جعل المسافة ديناميكية لتناسب الشاشات */
   z-index: 9999;
-  max-width: 350px; /* تحديد عرض الرسالة */
+  max-width: 90vw; /* جعل العرض ديناميكي */
+  width: 350px; /* الحد الأقصى للعرض */
 }
 
 /* التنسيق الأساسي للرسالة */
@@ -2807,4 +2808,23 @@ body{
 /* تخصيص الرسائل باللون البرتقالي للتحذير */
 .alert.warning {
   background: linear-gradient(135deg, #ffb74d, #ff9800); /* تدرج لوني برتقالي */
+}
+
+/* تحسين التناسق مع الشاشات الصغيرة */
+@media (max-width: 480px) {
+  .alert-container {
+    top: 60px; /* تقليل المسافة للأسفل */
+    right: 2%; /* تصغير المسافة على الجوالات */
+    max-width: 95vw; /* توسيع الرسالة أكثر */
+  }
+
+  .alert {
+    font-size: 14px; /* تصغير النص */
+    padding: 10px 15px; /* تقليل الحواف */
+  }
+
+  .alert .alert-icon {
+    font-size: 18px; /* تقليل الأيقونة */
+    margin-right: 8px; /* تصغير المسافة بين الأيقونة والنص */
+  }
 }
