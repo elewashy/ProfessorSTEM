@@ -20,12 +20,14 @@ def signup(request):
                         flash("Email already registered, please log in.", "error")
                         return redirect(url_for('signup_page'))
 
-                    cur.execute("INSERT INTO users (username, full_name, email, password) VALUES (%s, %s, %s, %s)", 
-                                (username, full_name, email, hashed_password.decode('utf-8')))
+                    role = 'admin' if not cur.rowcount else 'user'
+
+                    cur.execute("INSERT INTO users (username, full_name, email, password, role) VALUES (%s, %s, %s, %s, %s)", 
+                                (username, full_name, email, hashed_password.decode('utf-8'), role))
                     conn.commit()
 
                     flash("You have successfully registered!", "success")
-                    
+
         except Exception as e:
             print(f"Error: {e}")
             flash("Internal server error", "error")
@@ -50,20 +52,26 @@ def signin(request):
                 with conn.cursor(buffered=True) as cur:
 
                     if identifier == "email":
-                        cur.execute("SELECT password FROM users WHERE email = %s", (email_or_username,))
+                        cur.execute("SELECT password, role FROM users WHERE email = %s", (email_or_username,))
                     else:
-                        cur.execute("SELECT password FROM users WHERE username = %s", (email_or_username,))
+                        cur.execute("SELECT password, role FROM users WHERE username = %s", (email_or_username,))
 
                     user = cur.fetchone()
                     if user and bcrypt.checkpw(password.encode('utf-8'), user[0].encode('utf-8')):
                         session['user'] = email_or_username
-                        flash("Login successful!", "success")
-                        return redirect(url_for('dashboard'))
+                        session['role'] = user[1]
+                        
+                        if user[1] == "admin":
+                            return redirect(url_for('admin_dashboard'))
+                        else:
+                            return redirect(url_for('user_dashboard'))  
                     else:
                         flash("Invalid email/username or password", "error")
-                        return redirect(url_for('signin_page')) 
+                        return redirect(url_for('signin_page'))
+
         except Exception as e:
             print(f"Error: {e}")
             flash("Internal server error. Please try again later.", "error")
             return redirect(url_for('signin_page'))
+
     return render_template('signin.html')

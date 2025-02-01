@@ -21,11 +21,17 @@ def signup_page():
 def signin_page():
     return signin(request)
 
-@app.route('/dashboard')
-def dashboard():
-    if 'user' not in session:
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    if 'user' not in session or session.get('role') != 'admin':
         return redirect(url_for('home'))
-    return render_template('dashboard.html')
+    return render_template('admin_dashboard.html') 
+
+@app.route('/user/dashboard')
+def user_dashboard():
+    if 'user' not in session or session.get('role') != 'user':
+        return redirect(url_for('home'))
+    return render_template('user_dashboard.html') 
 
 @app.route('/logout')
 def logout():
