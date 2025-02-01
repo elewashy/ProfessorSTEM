@@ -2742,11 +2742,11 @@ body{
 /* التنسيق العام للرسالة */
 .alert-container {
   position: fixed;
-  top: 70px; /* تقليل المسافة ليظهر بشكل أنيق */
-  right: 5%; /* توازن الموقع */
+  top: 80px; /* تقليل المسافة ليظهر بشكل أنيق */
+  right: 2%; /* توازن الموقع */
   z-index: 9999;
   max-width: 90vw; /* جعل العرض ديناميكيًا */
-  width: 350px; /* الحد الأقصى للعرض */
+  width: 400px; /* الحد الأقصى للعرض */
 }
 
 /* التنسيق الأساسي للرسالة */
@@ -2811,8 +2811,8 @@ body{
 
 /* رسائل الخطأ */
 .alert.error {
-  background: linear-gradient(135deg, #e74c3c, #c0392b); /* أحمر واضح */
-}
+  background: linear-gradient(135deg, #ac1a0a, #c0392b); /* أحمر واضح */
+} 
 
 /* رسائل المعلومات */
 .alert.info {

@@ -57,12 +57,13 @@ def signin(request):
                     user = cur.fetchone()
                     if user and bcrypt.checkpw(password.encode('utf-8'), user[0].encode('utf-8')):
                         session['user'] = email_or_username
+                        flash("Login successful!", "success")
                         return redirect(url_for('dashboard'))
                     else:
-                        return "Invalid email/username or password", 401 
-
+                        flash("Invalid email/username or password", "error")
+                        return redirect(url_for('signin_page')) 
         except Exception as e:
             print(f"Error: {e}")
-            return "Internal server error", 500
-
+            flash("Internal server error. Please try again later.", "error")
+            return redirect(url_for('signin_page'))
     return render_template('signin.html')
