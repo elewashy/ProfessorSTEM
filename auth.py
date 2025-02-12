@@ -35,14 +35,20 @@ def signup(request):
                 "role": role
             }).execute()
 
+            # Print user data for verification
+            if response.data:
+                print("New user created:")
+                print(f"User ID: {response.data[0]['id']}")
+                print(f"Username: {response.data[0]['username']}")
+                print(f"Role: {response.data[0]['role']}")
+
             flash("You have successfully registered!", "success")
+            return redirect(url_for('signin_page'))
 
         except Exception as e:
             print(f"Error: {e}")
             flash("Internal server error", "error")
             return redirect(url_for('signup_page'))
-
-        return redirect(url_for('signin_page'))
 
     return render_template('signup.html')
 
@@ -67,9 +73,11 @@ def signin(request):
 
             if response.data and len(response.data) > 0:
                 user = response.data[0]
+                print(f"User found: ID={user['id']}, Role={user['role']}")  # Print for verification
                 if bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
                     session['user'] = email_or_username
                     session['role'] = user['role']
+                    session['user_id'] = user['id']  # Store user ID in session
                     
                     if user['role'] == "admin":
                         return redirect(url_for('admin_dashboard'))
