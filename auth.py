@@ -10,23 +10,32 @@ def signup(request):
         email = request.form['email']
         password = request.form['password']
 
+        # Hash the password
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
         try:
-            with get_db_connection() as conn:
-                with conn.cursor(buffered=True) as cur:
-                    cur.execute("SELECT * FROM users WHERE email = %s", (email,))
-                    if cur.fetchone():
-                        flash("Email already registered, please log in.", "error")
-                        return redirect(url_for('signup_page'))
+            supabase = get_db_connection()
+            
+            # Check if email already exists
+            response = supabase.table('users').select("*").eq('email', email).execute()
+            if response.data:
+                flash("Email already registered, please log in.", "error")
+                return redirect(url_for('signup_page'))
 
-                    role = 'admin' if not cur.rowcount else 'user'
+            # Check if first user (will be admin)
+            response = supabase.table('users').select("*").execute()
+            role = 'admin' if not response.data else 'user'
 
-                    cur.execute("INSERT INTO users (username, full_name, email, password, role) VALUES (%s, %s, %s, %s, %s)", 
-                                (username, full_name, email, hashed_password.decode('utf-8'), role))
-                    conn.commit()
+            # Insert new user
+            response = supabase.table('users').insert({
+                "username": username,
+                "full_name": full_name,
+                "email": email,
+                "password": hashed_password.decode('utf-8'),
+                "role": role
+            }).execute()
 
-                    flash("You have successfully registered!", "success")
+            flash("You have successfully registered!", "success")
 
         except Exception as e:
             print(f"Error: {e}")
@@ -48,26 +57,27 @@ def signin(request):
             identifier = "username"
 
         try:
-            with get_db_connection() as conn:
-                with conn.cursor(buffered=True) as cur:
+            supabase = get_db_connection()
 
-                    if identifier == "email":
-                        cur.execute("SELECT password, role FROM users WHERE email = %s", (email_or_username,))
-                    else:
-                        cur.execute("SELECT password, role FROM users WHERE username = %s", (email_or_username,))
+            # Query user by email or username
+            if identifier == "email":
+                response = supabase.table('users').select("*").eq('email', email_or_username).execute()
+            else:
+                response = supabase.table('users').select("*").eq('username', email_or_username).execute()
 
-                    user = cur.fetchone()
-                    if user and bcrypt.checkpw(password.encode('utf-8'), user[0].encode('utf-8')):
-                        session['user'] = email_or_username
-                        session['role'] = user[1]
-                        
-                        if user[1] == "admin":
-                            return redirect(url_for('admin_dashboard'))
-                        else:
-                            return redirect(url_for('user_dashboard'))  
+            if response.data and len(response.data) > 0:
+                user = response.data[0]
+                if bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+                    session['user'] = email_or_username
+                    session['role'] = user['role']
+                    
+                    if user['role'] == "admin":
+                        return redirect(url_for('admin_dashboard'))
                     else:
-                        flash("Invalid email/username or password", "error")
-                        return redirect(url_for('signin_page'))
+                        return redirect(url_for('user_dashboard'))
+            
+            flash("Invalid email/username or password", "error")
+            return redirect(url_for('signin_page'))
 
         except Exception as e:
             print(f"Error: {e}")

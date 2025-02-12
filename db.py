@@ -1,15 +1,15 @@
 import os
-import mysql.connector
+from supabase import create_client
 from dotenv import load_dotenv
 
 load_dotenv()
 
 def get_db_connection():
-    conn = mysql.connector.connect(
-        host=os.getenv('DB_HOST'),
-        database=os.getenv('DB_NAME'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        port=os.getenv('DB_PORT')
-    )
-    return conn
+    # Initialize Supabase client
+    supabase_url = os.getenv('SUPABASE_URL')
+    supabase_key = os.getenv('SUPABASE_SERVICE_ROLE_KEY')
+    
+    if not supabase_url or not supabase_key:
+        raise ValueError("Missing Supabase credentials")
+        
+    return create_client(supabase_url, supabase_key)
