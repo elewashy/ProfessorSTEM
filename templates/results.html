@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Results Section -->
+<section class="th rn dr uh er ve">
+    <div class="ba md _g nn pq">
+        <div class="animate_top mi ba">
+            <div class="eg sl ol pl pb xe oh hh sa">
+                <h4 class="bj yi ej dm">QUIZ RESULTS</h4>
+            </div>
+            <h2 class="cj ri nr ej dm ym/5 zp/2 ba sa"> Your Performance</h2>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="tb _d bn oo le eq ua xn vp">
+            <!-- Score Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-01.svg" alt="Score">
+                </div>
+                <h3 class="ej dm ri mr cj fa">Score</h3>
+                <p class="cj ri jr ej dm">{{ correct }}/{{ total }}</p>
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+                    <div class="bg-blue-600 h-2.5 rounded-full" id="score-progress"></div>
+                </div>
+                <script>
+                    document.getElementById('score-progress').style.width = '{{ (correct / total * 100)|round }}%';
+                </script>
+            </div>
+
+            <!-- Time Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-02.svg" alt="Time">
+                </div>
+                <h3 class="ej dm ri mr cj fa">Time Taken</h3>
+                <p class="cj ri jr ej dm">{{ time_taken }}s</p>
+                <p class="ta na">Average: {{ (time_taken / total)|round }}s per question</p>
+            </div>
+
+            <!-- Proficiency Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-03.svg" alt="Proficiency">
+                </div>
+                <h3 class="ej dm ri mr cj fa">Proficiency</h3>
+                <p class="cj ri jr ej dm">{{ proficiency|title }}</p>
+                <p class="ta na">Based on ML analysis</p>
+            </div>
+        </div>
+        <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+
+        <!-- Next Steps Section -->
+        <div class="animate_bottom uf sl ye mj pg sh mt-12">
+            <div class="xf fj si sb xe gh hh wa sa">
+                <h3 class="aj qi kr ej dm">What's Next?</h3>
+            </div>
+            <p class="ej dm bj xi">Based on your performance, we've created a personalized study plan to help you improve!</p>
+            <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+
+            <div class="mi">
+                <a href="{{ url_for('study_plan') }}" class="sb ee je bj fj em tf ul xe yg xg _k mm">
+                    View Study Plan 
+                    <svg class="lg bm nm" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="currentColor"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
