@@ -1,6 +1,6 @@
 import time
 import google.generativeai as genai
-from config import logger, CENTRAL_API_KEY, MATH_API_KEY, SCIENCE_API_KEY
+from config_agent import logger, CENTRAL_API_KEY, MATH_API_KEY, SCIENCE_API_KEY
 
 # Configure Gemini clients
 try:

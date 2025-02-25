@@ -1,12 +1,12 @@
 import time
 from flask import render_template, request, session, redirect, url_for, flash
-from config import logger
+from config_agent import logger
 from agents import CentralAgent
 
 central_agent = CentralAgent()
 
-def agents_home():
-    return render_template('agents_home.html')
+def user_training():
+    return render_template('user_training.html')
 
 def start_learning():
     try:
@@ -16,11 +16,11 @@ def start_learning():
         
         if not all([grade, subject, topic]):
             flash('Please fill in all fields', 'error')
-            return redirect(url_for('agents_home'))
+            return redirect(url_for('user_training'))
             
         if grade < 1 or grade > 12:
             flash('Invalid grade level', 'error')
-            return redirect(url_for('agents_home'))
+            return redirect(url_for('user_training'))
             
         session['quiz'] = {
             'grade': grade,
@@ -36,11 +36,11 @@ def start_learning():
     except Exception as e:
         logger.error(f"Error starting learning session: {str(e)}")
         flash('An error occurred. Please try again.', 'error')
-        return redirect(url_for('agents_home'))
+        return redirect(url_for('user_training'))
 
 def quiz():
     if 'quiz' not in session:
-        return redirect(url_for('agents_home'))
+        return redirect(url_for('user_training'))
     
     try:
         quiz_data = session['quiz']
@@ -51,7 +51,7 @@ def quiz():
             
             if not questions:
                 flash('Failed to generate quiz questions', 'error')
-                return redirect(url_for('agents_home'))
+                return redirect(url_for('user_training'))
                 
             quiz_data.update({
                 "questions": questions,
@@ -77,11 +77,11 @@ def quiz():
     except Exception as e:
         logger.error(f"Error displaying quiz: {str(e)}")
         flash('An error occurred. Please try again.', 'error')
-        return redirect(url_for('agents_home'))
+        return redirect(url_for('user_training'))
 
 def submit_answer():
     if 'quiz' not in session:
-        return redirect(url_for('agents_home'))
+        return redirect(url_for('user_training'))
     
     try:
         quiz_data = session['quiz']
@@ -121,7 +121,7 @@ def submit_answer():
 
 def results():
     if 'quiz' not in session:
-        return redirect(url_for('agents_home'))
+        return redirect(url_for('user_training'))
     
     try:
         quiz_data = session['quiz']
@@ -146,11 +146,11 @@ def results():
     except Exception as e:
         logger.error(f"Error displaying results: {str(e)}")
         flash('An error occurred. Please try again.', 'error')
-        return redirect(url_for('agents_home'))
+        return redirect(url_for('user_training'))
 
 def study_plan():
     if 'quiz' not in session:
-        return redirect(url_for('agents_home'))
+        return redirect(url_for('user_training'))
     
     try:
         quiz_data = session['quiz']

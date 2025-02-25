@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
-from config import logger
+from config_agent import logger
 
 def generate_synthetic_data(n_samples=100):
     np.random.seed(42)
