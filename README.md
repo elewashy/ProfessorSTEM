@@ -9,7 +9,6 @@ An innovative AI-powered STEM education platform that revolutionizes how student
 ## 📋 Table of Contents
 
 - [Features](#-features)
-- [Demo](#-demo)
 - [Installation](#-installation)
 - [Usage](#-usage)
 - [Technology Stack](#-technology-stack)
@@ -44,7 +43,6 @@ An innovative AI-powered STEM education platform that revolutionizes how student
 - **Progress Tracking**: Visual representations of improvement and learning milestones
 - **Multi-Subject Support**: Comprehensive coverage of both Mathematics and Science topics
 
-## 🎬 Cover
 
 ![ProfessorSTEM Cover](Cover%20Image.png)
 
