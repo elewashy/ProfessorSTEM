@@ -1,123 +1,202 @@
-# ProfessorSTEM 1.0 🎓
+# ProfessorSTEM 🎓
+
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
+[![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 An innovative AI-powered STEM education platform that revolutionizes how students learn science and mathematics through personalized, adaptive learning experiences.
 
-## 🌟 Key Features
+## 📋 Table of Contents
 
-### 1. Intelligent Assessment System
+- [Features](#-features)
+- [Demo](#-demo)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Technology Stack](#-technology-stack)
+- [Project Structure](#-project-structure)
+- [API Documentation](#-api-documentation)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
+
+## ✨ Features
+
+### 🧠 Intelligent Assessment System
 - **AI-Driven Initial Evaluation**: Uses Gemini AI to accurately assess student's starting knowledge level
 - **Real-Time Proficiency Tracking**: Continuously monitors student progress and adapts content difficulty
 - **Performance Analytics**: Detailed insights into learning progress with comparative analysis
 
-### 2. Personalized Learning Experience
+### 📚 Personalized Learning Experience
 - **Custom Study Plans**: Automatically generated learning paths based on individual student needs
 - **Age-Appropriate Content**: Tailored content delivery for different school levels (Elementary, Middle, High School)
 - **Adaptive Difficulty**: Content automatically adjusts based on student performance and learning speed
 
-### 3. Comprehensive Learning Journey
-- **Structured Learning Path**:
-  - Initial Proficiency Assessment
-  - Customized Study Material
-  - Interactive Learning Guides
-  - Progress Validation
-  - Final Assessment
-  - Performance Comparison
+### 🎯 Comprehensive Learning Journey
+- Initial Proficiency Assessment
+- Customized Study Material
+- Interactive Learning Guides
+- Progress Validation
+- Final Assessment
+- Performance Comparison
 
-### 4. Smart Features
+### 🛠️ Smart Features
 - **Intelligent Task Management**: Built-in todo list to help students organize their learning goals
 - **Progress Tracking**: Visual representations of improvement and learning milestones
 - **Multi-Subject Support**: Comprehensive coverage of both Mathematics and Science topics
 
-## 💼 Business Value
+## 🎬 Cover
 
-### For Educational Institutions
-- **Reduced Teacher Workload**: Automated assessment and personalized content generation
-- **Data-Driven Insights**: Detailed analytics on student performance and learning patterns
-- **Scalable Solution**: Easily implementable across different grade levels and subjects
+![ProfessorSTEM Cover](Cover%20Image.png)
+
+*Experience personalized STEM education powered by AI*
+
+## 🚀 Installation
+
+### Prerequisites
+
+- Python 3.7 or higher
+- pip package manager
+- PostgreSQL database
+
+### Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/ProfessorSTEM.git
+   cd ProfessorSTEM
+   ```
+
+2. **Create a virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your database and API credentials
+   ```
+
+5. **Initialize the database**
+   ```bash
+   python create_db.py
+   ```
+
+6. **Run the application**
+   ```bash
+   python app.py
+   ```
+
+The application will be available at `http://localhost:5000`
+
+\```
+
+## 💻 Usage
 
 ### For Students
-- **Personalized Learning**: Content adapted to individual learning pace and style
-- **Immediate Feedback**: Real-time assessment and progress tracking
-- **Flexible Learning**: Self-paced study with structured guidance
+1. **Sign Up**: Create an account with your grade level
+2. **Take Assessment**: Complete the initial proficiency quiz
+3. **Follow Study Plan**: Work through your personalized learning path
+4. **Track Progress**: Monitor your improvement over time
+5. **Final Assessment**: Validate your learning with comprehensive tests
 
-### For Parents
-- **Progress Monitoring**: Clear visibility into their child's learning journey
-- **Quality Education**: AI-powered personalized attention for each student
-- **Performance Insights**: Regular updates on improvements and areas needing attention
+### For Administrators
+1. **Admin Dashboard**: Monitor student progress and platform analytics
+2. **User Management**: Manage student accounts and access levels
+3. **Performance Reports**: Generate detailed learning analytics
 
-## 🛠 Technical Features
+## 🛠️ Technology Stack
 
-### AI Integration
-- Powered by Google's Gemini AI for intelligent content generation and assessment
-- Advanced proficiency assessment algorithms
-- Dynamic content adaptation based on performance metrics
+### Backend
+- **Framework**: Flask (Python)
+- **Database**: PostgreSQL with Supabase
+- **Authentication**: JWT with bcrypt password hashing
+- **AI Integration**: Google Gemini AI
 
-### Security
-- Secure user authentication system
-- Role-based access control (Admin/User)
-- Protected student data and progress tracking
+### Frontend
+- **Templates**: Jinja2
+- **Styling**: CSS3 with responsive design
+- **JavaScript**: Vanilla JS for interactive features
 
-### Architecture
-- Built with Python Flask for robust backend operations
-- Responsive frontend design for multiple device compatibility
-- Modular structure for easy maintenance and scaling
+### Deployment
+- **Platform**: Vercel (configuration included)
+- **WSGI**: Gunicorn compatible
+- **Database**: PostgreSQL (production)
+
+## 📁 Project Structure
+
+```
+ProfessorSTEM/
+├── 📄 app.py                 # Main Flask application
+├── 📄 config.py              # Configuration settings
+├── 📄 auth.py                # Authentication logic
+├── 📄 routes.py              # URL routes and views
+├── 📄 agents.py              # AI agents and logic
+├── 📄 db.py                  # Database operations
+├── 📄 proficiency.py         # Proficiency assessment logic
+├── 📁 static/                # Static assets
+│   ├── 📁 css/              # Stylesheets
+│   ├── 📁 js/               # JavaScript files
+│   └── 📁 images/           # Images and icons
+├── 📁 templates/            # HTML templates
+├── 📄 requirements.txt      # Python dependencies
+├── 📄 vercel.json          # Vercel deployment config
+└── 📄 README.md            # Project documentation
+```
+
+## 📖 API Documentation
+
+### Authentication Endpoints
+
+- `POST /signup` - User registration
+- `POST /signin` - User login
+- `GET /logout` - User logout
+
+### Learning Endpoints
+
+- `GET /quiz` - Get quiz questions
+- `POST /quiz` - Submit quiz answers
+- `GET /study_plan` - Get personalized study plan
+- `GET /results` - View learning progress
+
+### Admin Endpoints
+
+- `GET /admin/dashboard` - Admin dashboard
+- `GET /admin/users` - User management
 
 ## 🎯 Target Audience
+
 - **Primary**: K-12 Students (Ages 5-18)
 - **Secondary**: Teachers and Educational Institutions
 - **Tertiary**: Parents and Education Administrators
 
-## 🚀 Getting Started
+## 🤝 Contributing
 
-### Prerequisites
-- Python 3.7+
-- pip package manager
-- PostgreSQL database
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-### Required Dependencies
-- Flask - Web framework
-- Werkzeug - WSGI web application library
-- python-dotenv - Environment variable management
-- bcrypt - Password hashing
-- supabase - Database ORM
-- python-jose - JavaScript Object Signing and Encryption
-- psycopg2-binary - PostgreSQL adapter
-- google-generativeai - Gemini AI integration
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### Installation Steps
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Set up environment variables:
-   - Copy `.env.example` to `.env`
-   - Configure your database and Gemini API credentials
-4. Initialize the database:
-   ```bash
-   python create_db.py
-   ```
-5. Run the application:
-   ```bash
-   python app.py
-   ```
-   The application will be available at `http://localhost:5000`
+## 📝 License
 
-### Deployment
-- Supports deployment on Vercel (vercel.json included)
-- Compatible with any WSGI-compliant hosting service
-- Requires PostgreSQL database setup
-- Environment variables must be configured in production
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 💡 Future Enhancements
-- Mobile application development
-- Integration with popular Learning Management Systems (LMS)
-- Expanded subject coverage
-- Advanced analytics dashboard for institutions
-- Peer learning and collaboration features
+## 📞 Contact
 
-## 📫 Support
-For technical support or feature requests, please create an issue in the repository.
+- 💼 LinkedIn: [Elewashy](https://linkedin.com/in/elewashy)
 
-## 📄 License
-Copyright © 2025 ProfessorSTEM. All rights reserved.
+---
+
+<div align="center">
+  <p>Made with ❤️ for STEM Education</p>
+  <p>© 2025 ProfessorSTEM. All rights reserved.</p>
+</div>
